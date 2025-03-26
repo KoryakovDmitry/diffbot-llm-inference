@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.3.2-cudnn8-runtime-ubuntu22.04
+FROM nvidia/cuda:12.8.0-runtime-ubuntu22.04
 
 # Системные зависимости
 RUN apt-get update && apt-get install -y \
