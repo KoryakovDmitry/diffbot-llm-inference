@@ -1,28 +1,35 @@
-FROM vllm/vllm-openai:latest
+FROM nvidia/cuda:12.3.2-cudnn8-runtime-ubuntu22.04
 
-# Install required packages
+# Системные зависимости
 RUN apt-get update && apt-get install -y \
-   supervisor \
-   && apt-get clean
+    python3.10 \
+    python3.10-venv \
+    python3.10-dev \
+    python3-pip \
+    build-essential \
+    git \
+    supervisor \
+    curl \
+    && apt-get clean
 
-# Copy Supervisor configuration
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# Установка pip и poetry
+RUN python3.10 -m pip install --upgrade pip
+RUN pip install poetry poetry-plugin-export pyasynchat
 
-# Copy diffbot-llm code
+# Копируем код
 COPY . /code
-
 WORKDIR /code
 
-# Install requirements
-RUN pip install poetry
-RUN pip install poetry-plugin-export
-RUN pip install pyasynchat # required by supervisord
+# Настройка poetry под python3.10
 RUN poetry env use python3.10
 RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
-RUN poetry run pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN poetry run pip install --no-cache-dir --upgrade -r requirements.txt
 
-# Expose ports
-EXPOSE 3333 8000
+# Копируем конфигурацию supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Start Supervisor
+# Открываем порты
+EXPOSE 3333 8000 8001
+
+# Запуск supervisor
 ENTRYPOINT ["/usr/bin/supervisord"]
