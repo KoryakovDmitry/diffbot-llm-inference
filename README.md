@@ -7,6 +7,7 @@ poetry self add poetry-plugin-export
 poetry export -f requirements.txt --without-hashes --output requirements.txt
 sed 's/;.*//' requirements.txt > clean.txt
 mv clean.txt requirements.txt
+cog build -t diffbot-small
 ```
 
 ## 1. Introduction
