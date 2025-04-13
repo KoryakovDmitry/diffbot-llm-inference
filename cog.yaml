@@ -1,6 +1,7 @@
 build:
   # set to true if your model requires a GPU
   gpu: true
+  cuda: "12.1"
 
   # a list of ubuntu apt packages to install
   system_packages:
@@ -23,6 +24,7 @@ build:
   # commands run after the environment is setup
   run:
    - "echo Start App in the background!"
+   - --mount=type=cache,target=/root/.cache/pip TORCH_CUDA_ARCH_LIST="8.0;8.6;9.0" CUDA_HOME=/usr/local/cuda pip install --ignore-installed vllm==0.5.3.post1
 #   - "cp supervisord.conf /etc/supervisor/conf.d/supervisord.conf"
 #   - "bash /usr/bin/supervisord"
    - "echo Started App in the background successfully"
