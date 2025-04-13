@@ -24,9 +24,10 @@ class DiffBotReplicateServer(BasePredictor):
         model: str = Input(
             description="Name of model", choices=["diffbot-small-xl", "diffbot-small"]
         ),
-        messages: List[Dict[str, str]] = Input(
+        messages: List[List[str]] = Input(
             description="Messages OpenAI alike: "
             '{"role": ["system", "user", "assistant", "tool"], "content": string}'
+            ' -> [{"system" | "user" | "assistant" | "tool"}, "content_string]'
         ),
         temperature: Optional[float] = Input(
             description="Temperature of model", default=0, ge=0, le=2
@@ -34,10 +35,10 @@ class DiffBotReplicateServer(BasePredictor):
         frequency_penalty: Optional[float] = Input(
             description="frequency_penalty of model", default=0.0, ge=-2.0, le=2.0
         ),
-        logit_bias: Optional[Dict[str, int]] = Input(
-            description="Modify the likelihood of specified tokens appearing in the completion.",
-            default=None,
-        ),
+        # logit_bias: Optional[Dict[str, int]] = Input(
+        #     description="Modify the likelihood of specified tokens appearing in the completion.",
+        #     default=None,
+        # ),
         max_tokens: Optional[int] = Input(
             description="The maximum number of [tokens](/tokenizer) to generate in the chat completion."
         ),
@@ -66,13 +67,19 @@ class DiffBotReplicateServer(BasePredictor):
             base_url="https://localhost:8001/rag/v1",
             api_key=diffbot_api_token.get_secret_value(),
         )
-
+        messages = [
+            {
+                "role": m[0],
+                "content": m[1],
+            }
+            for m in messages
+        ]
         completion = client.chat.completions.create(
             model=model,
             temperature=temperature,
             messages=messages,
             frequency_penalty=frequency_penalty,
-            logit_bias=logit_bias,
+            # logit_bias=logit_bias,
             max_tokens=max_tokens,
             n=n,
             presence_penalty=presence_penalty,
