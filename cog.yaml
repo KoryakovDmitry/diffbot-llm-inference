@@ -7,7 +7,7 @@ build:
    - "supervisor"
    - "libgl1"
    - "libegl1"
-   - "libnvidia-gl-535"
+   - "libnvidia-gl-545"
   #   - "libgl1-mesa-glx"
   #   - "libglib2.0-0"
 
