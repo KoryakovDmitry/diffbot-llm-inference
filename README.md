@@ -4,8 +4,9 @@
 
 ```bash
 poetry self add poetry-plugin-export
-poetry export -f requirements.txt --output requirements.txt
-mv requirements.txt replicate_server
+poetry export -f requirements.txt --without-hashes --output requirements.txt
+sed 's/;.*//' requirements.txt > clean.txt
+mv clean.txt requirements.txt
 ```
 
 ## 1. Introduction
