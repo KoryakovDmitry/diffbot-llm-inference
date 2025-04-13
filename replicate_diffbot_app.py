@@ -3,6 +3,7 @@ from typing import List, Dict, Union
 from openai import OpenAI
 from cog import BasePredictor, Input, Secret, AsyncConcatenateIterator
 from typing_extensions import Optional
+import subprocess
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,7 +17,13 @@ logger = logging.getLogger(__name__)
 class DiffBotReplicateServer(BasePredictor):
     def setup(self) -> None:
         """Load the model into memory to make running multiple predictions efficient"""
-        pass
+        config_path = "/src/supervisord.conf"
+
+        try:
+            subprocess.run(["supervisord", "-c", config_path], check=True)
+            logger.info("supervisord started successfully.")
+        except subprocess.CalledProcessError as e:
+            logger.error("Failed to start supervisord:", e)
 
     async def predict(
         self,

@@ -3,7 +3,8 @@ build:
   gpu: false
 
   # a list of ubuntu apt packages to install
-  # system_packages:
+  system_packages:
+   - "supervisor"
   #   - "libgl1-mesa-glx"
   #   - "libglib2.0-0"
 
