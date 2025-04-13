@@ -63,7 +63,7 @@ class DiffBotReplicateServer(BasePredictor):
     ) -> AsyncConcatenateIterator[str]:
         """Run a single prediction on the model"""
         client = OpenAI(
-            base_url="https://localhost/rag/v1",
+            base_url="https://localhost:8001/rag/v1",
             api_key=diffbot_api_token.get_secret_value(),
         )
 
