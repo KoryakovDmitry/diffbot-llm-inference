@@ -1,5 +1,13 @@
 # Diffbot GraphRAG LLM
 
+## 0. From poetry to requirements.txt for cog
+
+```bash
+poetry self add poetry-plugin-export
+poetry export -f requirements.txt --output requirements.txt
+mv requirements.txt replicate_server
+```
+
 ## 1. Introduction
 
 Recently, large language models (LLMs) have been trained with more and more data, leading to an increase in the number of parameters and the compute power needed. But what if, instead of feeding the model more data, we purposefully trained it to rely less on its pretraining data and more on it's ability to find external knowledge?
