@@ -7,9 +7,9 @@ services:
       - "5722:5000"
     environment:
       - TZ=${TZ:-Europe/Luxembourg}
-      - NVIDIA_VISIBLE_DEVICES=all
+#      - NVIDIA_VISIBLE_DEVICES=all
       - PORT=5000
-    runtime: nvidia
+#    runtime: nvidia
     restart: always
     networks:
       - arch-network
