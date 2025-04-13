@@ -3,7 +3,7 @@ import time
 import uvicorn
 from fastapi import FastAPI, Request, Response
 from fastapi.exception_handlers import RequestValidationError
-from fastapi.exceptions import ValidationError
+from pydantic import ValidationError
 from starlette.responses import JSONResponse
 
 from server.rag_router import rag_router
