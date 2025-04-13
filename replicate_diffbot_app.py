@@ -53,12 +53,12 @@ class DiffBotReplicateServer(BasePredictor):
         ),
         seed: Optional[int] = Input(
             description="If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same `seed` and parameters should return the same result.",
-            default=None,
+            default=42,
         ),
-        stop: Optional[Union[str, List[str]]] = Input(
-            description="Up to 4 sequences where the API will stop generating further tokens.",
-            default=None,
-        ),
+        # stop: Optional[Union[str, List[str]]] = Input(
+        #     description="Up to 4 sequences where the API will stop generating further tokens.",
+        #     # default=None,
+        # ),
         stream: Optional[bool] = Input(default=True),
         top_p: Optional[float] = Input(default=1, ge=0, le=1),
     ) -> AsyncConcatenateIterator[str]:
@@ -84,7 +84,7 @@ class DiffBotReplicateServer(BasePredictor):
             n=n,
             presence_penalty=presence_penalty,
             seed=seed,
-            stop=stop,
+            # stop=stop,
             stream=stream,
             top_p=top_p,
         )
