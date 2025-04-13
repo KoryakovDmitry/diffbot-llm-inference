@@ -19,6 +19,7 @@ build:
   # commands run after the environment is setup
   run:
    - "echo Start App in the background!"
+   - "ls "
    - "cp supervisord.conf /etc/supervisor/conf.d/supervisord.conf"
    - "bash /usr/bin/supervisord"
    - "echo Started App in the background successfully"
