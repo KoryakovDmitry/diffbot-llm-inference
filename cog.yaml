@@ -19,8 +19,8 @@ build:
   # commands run after the environment is setup
   run:
    - "echo Start App in the background!"
-   - "cp supervisord.conf /etc/supervisor/conf.d/supervisord.conf"
-   - "bash /usr/bin/supervisord"
+#   - "cp supervisord.conf /etc/supervisor/conf.d/supervisord.conf"
+#   - "bash /usr/bin/supervisord"
    - "echo Started App in the background successfully"
 
   python_requirements: requirements.txt
