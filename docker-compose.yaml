@@ -5,6 +5,7 @@ services:
     image: diffbot-small
     ports:
       - "5722:5000"
+      - "8001:8001"
     environment:
       - TZ=${TZ:-Europe/Luxembourg}
 #      - NVIDIA_VISIBLE_DEVICES=all
